@@ -38,9 +38,9 @@
 
     h1, h2 {
       font-family: 'Playfair Display', serif;
+      letter-spacing: 0.5px;
     }
 
-    /* Fade-in animation */
     .fade-in {
       opacity: 0;
       transform: translateY(20px);
@@ -52,21 +52,14 @@
       transform: translateY(0);
     }
 
-    /* Strong shine for headings */
     .shine {
-      background: linear-gradient(
-        90deg,
-        #d4af37,
-        #ffffff,
-        #d4af37
-      );
+      background: linear-gradient(90deg, #d4af37, #ffffff, #d4af37);
       background-size: 200%;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       animation: shine 6s linear infinite;
     }
 
-    /* Softer shine for message */
     .soft-shine {
       background: linear-gradient(
         90deg,
@@ -90,7 +83,6 @@
       100% { background-position: 200%; }
     }
 
-    /* Glitter canvas */
     #glitter {
       position: fixed;
       top: 0;
@@ -108,7 +100,6 @@
 
 <body>
 
-  <!-- Glitter Layer -->
   <canvas id="glitter"></canvas>
 
   <!-- Landing Section -->
@@ -125,8 +116,8 @@
     </button>
   </section>
 
-  <!-- Message Section -->
-  <section id="message" class="min-h-screen flex flex-col justify-center px-8 text-center">
+  <!-- Message Section (Refined Spacing) -->
+  <section id="message" class="py-32 px-8 text-center">
     <div class="max-w-xl mx-auto space-y-6">
       <p class="text-lg leading-relaxed fade-in soft-shine">
         You’ve never asked for recognition.
@@ -148,18 +139,28 @@
   </section>
 
   <!-- Closing Section -->
-  <section class="min-h-screen flex flex-col justify-center items-center text-center px-6">
-    <h2 class="text-3xl sm:text-4xl font-bold mb-4 shine fade-in">
-      Happy Birthday.
-    </h2>
+  <section class="min-h-screen flex flex-col justify-center px-6">
+    <div class="max-w-xl mx-auto text-center space-y-6">
 
-    <p class="text-lg mt-4 fade-in soft-shine">
-      I hope I carry forward what you’ve taught me and ease your burdens, even if only a little.
-    </p>
+      <h2 class="text-3xl sm:text-4xl font-bold shine fade-in">
+        Happy Birthday.
+      </h2>
 
-    <p class="text-sm mt-12 opacity-60 fade-in text-left">
-      — Your Bunu
-    </p>
+      <p class="text-lg fade-in soft-shine">
+        I hope I carry forward what you’ve taught me — and ease your burdens, even if only a little.
+      </p>
+
+      <!-- Properly Left-Aligned Signature -->
+      <p class="text-sm mt-12 opacity-60 fade-in text-left w-full">
+        — Your Bunu
+      </p>
+
+      <!-- Subtle Developer Credit -->
+      <p class="text-xs mt-24 opacity-30 tracking-widest fade-in">
+        Designed & developed by Kartik Naik
+      </p>
+
+    </div>
   </section>
 
   <script>
@@ -167,7 +168,6 @@
       document.getElementById("message").scrollIntoView({ behavior: "smooth" });
     }
 
-    // Fade-in observer
     const faders = document.querySelectorAll(".fade-in");
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
@@ -179,7 +179,6 @@
 
     faders.forEach(el => observer.observe(el));
 
-    // Vertical falling glitter (polished)
     const canvas = document.getElementById("glitter");
     const ctx = canvas.getContext("2d");
 
