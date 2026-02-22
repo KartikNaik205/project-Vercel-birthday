@@ -84,7 +84,7 @@
     }
 
     #glitter {
-      position: fixed;
+      position: absolute;
       top: 0;
       left: 0;
       pointer-events: none;
@@ -116,7 +116,7 @@
     </button>
   </section>
 
-  <!-- Message Section (Refined Spacing) -->
+  <!-- Message Section -->
   <section id="message" class="py-32 px-8 text-center">
     <div class="max-w-xl mx-auto space-y-6">
       <p class="text-lg leading-relaxed fade-in soft-shine">
@@ -139,7 +139,8 @@
   </section>
 
   <!-- Closing Section -->
-  <section class="min-h-screen flex flex-col justify-center px-6">
+  <section class="min-h-screen flex flex-col justify-center px-6 relative">
+
     <div class="max-w-xl mx-auto text-center space-y-6">
 
       <h2 class="text-3xl sm:text-4xl font-bold shine fade-in">
@@ -150,17 +151,16 @@
         I hope I carry forward what you’ve taught me — and ease your burdens, even if only a little.
       </p>
 
-      <!-- Properly Left-Aligned Signature -->
       <p class="text-sm mt-12 opacity-60 fade-in text-left w-full">
         — Your Bunu
       </p>
 
-      <!-- Subtle Developer Credit -->
-      <p class="text-xs mt-24 opacity-30 tracking-widest fade-in">
-        Designed & developed by Kartik Naik
-      </p>
-
     </div>
+
+    <p class="absolute bottom-6 left-1/2 -translate-x-1/2 text-xs opacity-20 tracking-widest fade-in">
+      Designed & developed by Kartik Naik
+    </p>
+
   </section>
 
   <script>
@@ -184,10 +184,11 @@
 
     function resizeCanvas() {
       canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      canvas.height = document.body.scrollHeight;
     }
 
     resizeCanvas();
+    window.addEventListener("load", resizeCanvas);
     window.addEventListener("resize", resizeCanvas);
 
     const particleCount = 50;
