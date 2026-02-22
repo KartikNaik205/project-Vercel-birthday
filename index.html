@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Birthday, Dad</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      color: #f8fafc;
+      background-color: #0b0f19;
+      background-image:
+        repeating-linear-gradient(
+          45deg,
+          rgba(255,255,255,0.02) 0px,
+          rgba(255,255,255,0.02) 2px,
+          transparent 2px,
+          transparent 6px
+        ),
+        repeating-linear-gradient(
+          -45deg,
+          rgba(255,255,255,0.02) 0px,
+          rgba(255,255,255,0.02) 2px,
+          transparent 2px,
+          transparent 6px
+        );
+      overflow-x: hidden;
+    }
+
+    h1, h2 {
+      font-family: 'Playfair Display', serif;
+    }
+
+    /* Fade-in animation */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 1s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Strong shine for headings */
+    .shine {
+      background: linear-gradient(
+        90deg,
+        #d4af37,
+        #ffffff,
+        #d4af37
+      );
+      background-size: 200%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: shine 6s linear infinite;
+    }
+
+    /* Softer shine for message */
+    .soft-shine {
+      background: linear-gradient(
+        90deg,
+        rgba(212,175,55,0.6),
+        rgba(255,255,255,0.9),
+        rgba(212,175,55,0.6)
+      );
+      background-size: 200%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: softShine 12s linear infinite;
+    }
+
+    @keyframes shine {
+      0% { background-position: -200%; }
+      100% { background-position: 200%; }
+    }
+
+    @keyframes softShine {
+      0% { background-position: -200%; }
+      100% { background-position: 200%; }
+    }
+
+    /* Glitter canvas */
+    #glitter {
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    section {
+      position: relative;
+      z-index: 1;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Glitter Layer -->
+  <canvas id="glitter"></canvas>
+
+  <!-- Landing Section -->
+  <section class="min-h-screen flex flex-col justify-center items-center text-center px-6">
+    <h1 class="text-4xl sm:text-5xl font-bold mb-4 shine fade-in">
+      Happy Birthday, Dad.
+    </h1>
+
+    <div class="w-16 h-[2px] bg-yellow-500 mb-6 fade-in"></div>
+
+    <button onclick="scrollToSection()"
+      class="mt-6 border border-yellow-500 px-6 py-2 text-sm tracking-wide hover:bg-yellow-500 hover:text-black transition duration-500 fade-in">
+      Continue
+    </button>
+  </section>
+
+  <!-- Message Section -->
+  <section id="message" class="min-h-screen flex flex-col justify-center px-8 text-center">
+    <div class="max-w-xl mx-auto space-y-6">
+      <p class="text-lg leading-relaxed fade-in soft-shine">
+        You’ve never asked for recognition.
+      </p>
+
+      <p class="text-lg leading-relaxed fade-in soft-shine">
+        You’ve never demanded praise.
+      </p>
+
+      <p class="text-lg leading-relaxed fade-in soft-shine">
+        But everything I’ve learned about discipline, strength, and responsibility
+        came from watching you.
+      </p>
+
+      <p class="text-lg leading-relaxed fade-in soft-shine">
+        Thank you for everything you’ve done — quietly.
+      </p>
+    </div>
+  </section>
+
+  <!-- Closing Section -->
+  <section class="min-h-screen flex flex-col justify-center items-center text-center px-6">
+    <h2 class="text-3xl sm:text-4xl font-bold mb-4 shine fade-in">
+      Happy Birthday.
+    </h2>
+
+    <p class="text-lg mt-4 fade-in soft-shine">
+      I hope I carry forward what you’ve taught me and ease your burdens, even if only a little.
+    </p>
+
+    <p class="text-sm mt-12 opacity-60 fade-in text-left">
+      — Your Bunu
+    </p>
+  </section>
+
+  <script>
+    function scrollToSection() {
+      document.getElementById("message").scrollIntoView({ behavior: "smooth" });
+    }
+
+    // Fade-in observer
+    const faders = document.querySelectorAll(".fade-in");
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+        }
+      });
+    }, { threshold: 0.3 });
+
+    faders.forEach(el => observer.observe(el));
+
+    // Vertical falling glitter (polished)
+    const canvas = document.getElementById("glitter");
+    const ctx = canvas.getContext("2d");
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+
+    resizeCanvas();
+    window.addEventListener("resize", resizeCanvas);
+
+    const particleCount = 50;
+    let particles = [];
+
+    function createParticle() {
+      return {
+        x: Math.random() * canvas.width,
+        y: Math.random() * -canvas.height,
+        size: Math.random() * 2 + 0.5,
+        speedY: Math.random() * 1 + 0.5,
+        sway: Math.random() * 0.5,
+        opacity: Math.random() * 0.5 + 0.3
+      };
+    }
+
+    for (let i = 0; i < particleCount; i++) {
+      particles.push(createParticle());
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      particles.forEach(p => {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(212, 175, 55, ${p.opacity})`;
+        ctx.fill();
+
+        p.y += p.speedY;
+        p.x += Math.sin(p.y * 0.01) * p.sway;
+
+        if (p.y > canvas.height) {
+          Object.assign(p, createParticle());
+          p.y = -10;
+        }
+      });
+
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+  </script>
+
+</body>
+</html>

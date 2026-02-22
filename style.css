@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Birthday, Dad</title>
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #0f172a;
+      color: #f8fafc;
+    }
+
+    h1, h2 {
+      font-family: 'Playfair Display', serif;
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 1s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+
+<body class="overflow-x-hidden">
+
+  <!-- Landing Section -->
+  <section class="min-h-screen flex flex-col justify-center items-center text-center px-6">
+    <h1 class="text-4xl sm:text-5xl font-bold mb-4 fade-in">
+      Happy Birthday, Dad.
+    </h1>
+
+    <div class="w-16 h-[2px] bg-yellow-500 mb-6 fade-in"></div>
+
+    <button onclick="scrollToSection()"
+      class="mt-6 border border-yellow-500 px-6 py-2 text-sm tracking-wide hover:bg-yellow-500 hover:text-black transition duration-500 fade-in">
+      Continue
+    </button>
+  </section>
+
+  <!-- Message Section -->
+  <section id="message" class="min-h-screen flex flex-col justify-center px-8 text-center">
+    <div class="max-w-xl mx-auto space-y-6">
+      <p class="text-lg leading-relaxed fade-in">
+        You’ve never asked for recognition.
+      </p>
+
+      <p class="text-lg leading-relaxed fade-in">
+        You’ve never demanded praise.
+      </p>
+
+      <p class="text-lg leading-relaxed fade-in">
+        But everything I’ve learned about discipline, strength, and responsibility
+        came from watching you.
+      </p>
+
+      <p class="text-lg leading-relaxed fade-in">
+        Thank you for everything you’ve done — quietly.
+      </p>
+    </div>
+  </section>
+
+  <!-- Closing Section -->
+  <section class="min-h-screen flex flex-col justify-center items-center text-center px-6">
+    <h2 class="text-3xl sm:text-4xl font-bold mb-4 fade-in">
+      Happy Birthday.
+    </h2>
+
+    <p class="text-lg mt-4 fade-in">
+      I hope I carry forward what you’ve taught me.
+    </p>
+
+    <p class="text-sm mt-10 opacity-60 fade-in">
+      — Your son
+    </p>
+  </section>
+
+  <script>
+    function scrollToSection() {
+      document.getElementById("message").scrollIntoView({ behavior: "smooth" });
+    }
+
+    // Fade-in on scroll
+    const faders = document.querySelectorAll(".fade-in");
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+        }
+      });
+    }, { threshold: 0.3 });
+
+    faders.forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
